@@ -8,25 +8,39 @@ SELECT
 FROM
 	TB_DEPARTMENT;
 
-/*2번
+/*2번 O
  *  학과의 학과 정원을 다음과 같은 형태로 조회하시오. 
  */
 SELECT
-	CAPACITY AS "학과별 정원"
+	DEPARTMENT_NAME || '의 정원은 ' || CAPACITY || '명 입니다'
+	AS "학과별 정원"
 FROM
 	TB_DEPARTMENT;
 	
-/*3번
+/*3번 O
  * "국어국문학과" 에 다니는 여학생 중 현재 휴학중인 여학생을 조회하시오.
  * (국문학과의 학과코드(DEPARTMENT_NO)는 001) */
+SELECT 
+	STUDENT_NAME 
+FROM 	
+	TB_STUDENT
+WHERE
+	SUBSTR(STUDENT_SSN ,8,1) = '2'
+AND
+	DEPARTMENT_NO = 001
+AND
+	ABSENCE_YN = 'Y';
 
-
-
-/*4번
+/*4번 O
  * 도서관에서 대출 도서 장기 연체자들을 찾아 이름을 게시하고자 한다.
  * 그 대상자들의 학번이 다음과 같을 때 대상자들을 찾는 적절한 SQL구문을 작성하시오.
  * A513079, A513090, A513091, A513110, A513119 */
-
+SELECT 
+	STUDENT_NAME
+FROM
+	TB_STUDENT
+WHERE
+	STUDENT_NO IN ('A513079', 'A513090','A513091', 'A513110', 'A513119');
 	
 
 /*5번 O
@@ -58,15 +72,36 @@ FROM
 WHERE
 	PREATTENDING_CLASS_NO IS NOT NULL;
 
-/*8번
+/*8번 O
  *  춘 대학에는 어떤 계열(CATEGORY)들이 있는지 조회해 보시오.*/
 SELECT
-	CATEGORY
+	DISTINCT CATEGORY
 FROM
 	TB_DEPARTMENT;
-ORDER BY
 	
-	
+/*  9번 O
+ * 02학번 전주 거주자들의 모임을 만들려고 한다.
+ * 휴학한 사람들은 제외한 재학중인 학생들의
+ * 학번, 이름, 주민번호를 조회하는 구문을 작성하시오.*/	
+SELECT 
+	STUDENT_NO,
+	STUDENT_NAME,
+	STUDENT_SSN 
+FROM 
+	TB_STUDENT
+WHERE
+	STUDENT_ADDRESS LIKE '%전주%'
+AND
+	STUDENT_NO LIKE 'A2%'
+AND
+	ABSENCE_YN = 'N';
+
+
+
+
+
+
+
 
 
 
