@@ -80,13 +80,55 @@ SELECT
 FROM 
 	TB_DEPARTMENT;
 
-/* 9번
+/* 9번 O
  * 지도 교수를 배정받지 못한 학생의 수를 조회하시오.*/
+SELECT
+	COUNT(*)
+FROM
+	TB_STUDENT
+WHERE
+	COACH_PROFESSOR_NO IS NULL;
 
 /* 10번
  * 학번이 A112113인 김고운 학생의 년도 별 평점을 구하는 SQL문을 작성하시오.
  * 단, 이때 출력화면의 헤더는 "년도", "년도 별 평점"이라고 찍히게 하고,
  * 점수는 반올림하여 소수점 이하 한자리까지만 표시한다. */
+SELECT
+	ROUND(AVG(POINT), 1) AS "년도 별 평점"
+FROM 
+	TB_GRADE
+WHERE
+	STUDENT_NO = 'A112113'
+	
+/* 11번
+ * 학과 별 휴학생 수를 파악하고자 한다.
+ * 학과 번호와 휴학생 수를 조회하는 SQL을 작성하시오.*/
+SELECT
+	DEPARTMENT_NO
+FROM
+	TB_STUDENT;
+WHERE
+	ABSENCE_YN = Y;
+
+/* 12번
+ * 춘 대학교에 다니는 동명이인인 학생들의 이름, 동명인 수를 조회하시오 */
+
+/* 13번
+ *  학번이 A112113인 김고운 학생의 학점을 조회하려고 한다.
+ * 년도, 학기 별 평점과 년도 별 누적 평점, 총 평점을 구하는 SQL을 작성하시오.
+ * (단, 평점은 소수점 1자리까지만 반올림하여 표시한다.) *
+	
+
+
+
+
+
+
+
+
+
+
+
 
 
 
