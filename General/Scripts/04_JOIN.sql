@@ -621,7 +621,9 @@ JOIN
 JOIN 
 	SAL_GRADE S ON (E.SAL_LEVEL = S.SAL_LEVEL)
 WHERE 
-	E.SALARY > S.MIN_SAL;
+	E.SALARY > S.MIN_SAL
+ORDER BY 
+	E.EMP_ID ASC;
 	
 
 -- 7.한국(KO)과 일본(JP)에 근무하는 직원들의 
@@ -640,9 +642,7 @@ JOIN
 JOIN 
 	NATIONAL N ON (L.NATIONAL_CODE = N.NATIONAL_CODE)
 WHERE 
-	L.NATIONAL_CODE = 'KO'
-OR 
-	L.NATIONAL_CODE = 'JP';
+	L.NATIONAL_CODE IN  ('KO', 'JP');
 
 
 -- 8. 같은 부서에 근무하는 직원들의 사원명, 부서코드, 동료이름을 조회하시오.
@@ -676,26 +676,3 @@ WHERE
 	E.BONUS IS NULL
 AND
 	J.JOB_CODE IN ('J4','J7');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
