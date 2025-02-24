@@ -73,13 +73,15 @@ FROM
 WHERE 
  STUDENT_NO = 'A517178';
 
-/* 8번
+/* 8번 X
  * 학과별 학생 수를 구하여 "학과번호", "학생수(명)"의 형태로 조회하시오.*/
 SELECT 
-	DEPARTMENT_NO 학과번호,
-	COUNT(*) 학생수(명)
+	D.DEPARTMENT_NO,
+	COUNT(*)
 FROM 
-	TB_DEPARTMENT;
+	TB_STUDENT S
+JOIN
+	TB_DEPARTMENT D ON (S.DEPARTMENT_NO = D.DEPARTMENT_NO);
 
 /* 9번 O
  * 지도 교수를 배정받지 못한 학생의 수를 조회하시오.*/
@@ -99,17 +101,16 @@ SELECT
 FROM 
 	TB_GRADE
 WHERE
-	STUDENT_NO = 'A112113'
+	STUDENT_NO = 'A112113';
 	
 /* 11번
  * 학과 별 휴학생 수를 파악하고자 한다.
  * 학과 번호와 휴학생 수를 조회하는 SQL을 작성하시오.*/
 SELECT
-	DEPARTMENT_NO
+  DEPARTMENT_NO,
+	COUNT(*)
 FROM
 	TB_STUDENT;
-WHERE
-	ABSENCE_YN = Y;
 
 /* 12번
  * 춘 대학교에 다니는 동명이인인 학생들의 이름, 동명인 수를 조회하시오 */
