@@ -115,6 +115,8 @@ RIGHT JOIN
  * 과목명, 교수이름을 과목명 오름차순으로 조회하시오. 
  * */
 
+
+
 /* 10번 ------------------ 모르겠음
  * 음악학과 학생들의 "학번", "학생 이름", "전체 평점"을 조회하시오.
  * (단, 평점은 소수점 1자리까지만 반올림하여 표시한다.)
@@ -148,9 +150,48 @@ JOIN
 WHERE 
 	S.STUDENT_NO = 'A313047';
 
+/* 12번 -? 14행 맞는지? 답에는 3행까지만 나옴
+ * 2007년도에 '인간관계론' 과목을 수강한 학생을 찾아 
+ * 학생이름과 수강학기를 조회하는 SQL을 작성하시오.
+ * */
+SELECT 
+	S.STUDENT_NAME,
+	G.TERM_NO
+FROM
+	TB_STUDENT S
+JOIN 
+	TB_GRADE G ON (S.STUDENT_NO = G.STUDENT_NO)
+JOIN 
+	TB_CLASS C ON (S.DEPARTMENT_NO = C.DEPARTMENT_NO)
+WHERE 
+	G.TERM_NO LIKE '2007%'
+AND 
+	C.CLASS_NAME = '인간관계론'; 
 
+/* 13번
+ * 예체능 계열 과목 중 과목 담당교수를 한 명도 배정받지 못한 과목을 찾아
+ * 과목 이름, 학과 이름을 조회하시오.
+ * */
+SELECT 
+	C.CLASS_NAME,
+	D.DEPARTMENT_NAME 
+FROM 
+	TB_DEPARTMENT D
+JOIN
+	TB_CLASS C ON (D.DEPARTMENT_NO = C.DEPARTMENT_NO)
+HAVING
+	D.CATEGORY = '예체능';
 
+/* 14번
+ * 춘 기술대학교 서반아어학과 학생들의 지도교수를 게시하고자 한다.
+ * 학생이름, 지도교수이름 학번이 높은 순서로 조회하는 SQL을 작성하시오.
+ * 단, 지도교수가 없을 경우 "지도교수 미지정"으로 표시 
+ * */
 
+/* 15번
+ * 휴학생이 아닌 학생 중 평점이 4.0 이상인 학생을 찾아
+ * 학생의 학번, 이름, 학과, 이름, 평점을 조회하시오
+ * */
 
 
 

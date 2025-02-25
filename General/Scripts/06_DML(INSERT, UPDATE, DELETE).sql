@@ -51,7 +51,7 @@ WHERE EMP_ID = 900;
 -- 2)  INSERT INTO 테이블명(컬럼명, 컬럼명, 컬럼명,...)
 -- VALUES (데이터1, 데이터2, 데이터3, ...);
 -- 테이블에 내가 선택한 컬럼에 대한 값만 INSERT할 때 사용
--- 선택안된 컬럼은 값이 NULL이 들어감
+-- 선택 되지 않은 컬럼은 값이 NULL이 들어감
 
 -- EMP_NAME, EMP_ID, EMP_NO, EMAIL, PHONE, DEPT_CODE, JOB_CODE, SAL_LEVEL, SALARY
 -- '장채현', 900, '001123-2345678', 'jang_ch@kh.or.kr', '01012341234', 'D1', 'J7', 'S3', 4300000
@@ -404,7 +404,6 @@ SELECT * FROM EMPLOYEE3;
 ROLLBACK;
 -- 롤백 후 복구 확인 -> 복구 안됨을 확인!
 SELECT * FROM EMPLOYEE3;
-
 
 
 
