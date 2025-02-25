@@ -857,10 +857,3 @@ ORDER BY
 	3 DESC,       -- 순서
 	EMP_NAME ASC; -- 컬럼명
 
-
-
-
-
-
-
-

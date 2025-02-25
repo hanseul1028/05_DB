@@ -19,7 +19,7 @@
 /* <문자 관련 함수>*/
 
 /*LENGTH(컬럼명|문자열) : 문자열의 길이 반환 */
-SELECT 'HELLO WORLD', LENGTH('HELLO WORLD')
+SELECT 'HELLO WORLD', LENGTH('HELLO WORLD') 
 FROM DUAL
 
 -- EMPLOYEE 테이블에서 
