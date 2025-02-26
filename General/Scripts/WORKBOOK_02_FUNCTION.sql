@@ -103,25 +103,39 @@ FROM
 WHERE
 	STUDENT_NO = 'A112113';
 	
-/* 11번
+/* 11번 O
  * 학과 별 휴학생 수를 파악하고자 한다.
  * 학과 번호와 휴학생 수를 조회하는 SQL을 작성하시오.*/
 SELECT
-  DEPARTMENT_NO,
-	COUNT(*)
+  DEPARTMENT_NO AS "학과코드명",
+	COUNT(DECODE(ABSENCE_YN,'Y','휴학생')) AS "휴학생 수"
 FROM
-	TB_STUDENT;
+	TB_STUDENT
+GROUP BY
+	DEPARTMENT_NO 
+ORDER BY
+	DEPARTMENT_NO ASC;
 
 /* 12번
  * 춘 대학교에 다니는 동명이인인 학생들의 이름, 동명인 수를 조회하시오 */
 
-/* 13번
+/* 13번 O
  *  학번이 A112113인 김고운 학생의 학점을 조회하려고 한다.
  * 년도, 학기 별 평점과 년도 별 누적 평점, 총 평점을 구하는 SQL을 작성하시오.
- * (단, 평점은 소수점 1자리까지만 반올림하여 표시한다.) *
-	
-
-
+ * (단, 평점은 소수점 1자리까지만 반올림하여 표시한다.) */
+SELECT 
+	NVL(SUBSTR(TERM_NO,1,4),' ') 년도,
+	NVL(SUBSTR(TERM_NO,5),' ') 학기,
+	ROUND(AVG(POINT),1) "총 평점"
+FROM
+	TB_GRADE
+WHERE 
+	STUDENT_NO = 'A112113'
+GROUP BY
+	ROLLUP (SUBSTR(TERM_NO,1,4),
+	SUBSTR(TERM_NO,5))
+ORDER BY 
+	SUBSTR(TERM_NO,1,4) ASC;
 
 
 
