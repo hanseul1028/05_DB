@@ -46,6 +46,135 @@ DROP ANY TABLE   : 임의 테이블 삭제 권한
     EXECUTE             PROCEDURE
 */
 
-
-
 -------------------------------------------------------------
+
+/* 관리자 계정 접속 -> 사용자 계정 생성 */
+
+ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;
+--> 오라클 12C 이상 버전에서 
+-- 계정명을 있는 그대로 사용하고 싶을 때 적용하는 옵션
+
+/* [사용자 계정 생성]
+ * CREATE USER 사용자명 IDENTIFIED BY 비밀번호;
+ * */
+
+CREATE USER TEST09_USER IDENTIFIED BY "TEST1234";
+
+-- CREATE SESSION 권한 없음
+
+/* 시스템 권한 부여
+ * - GRANT 권한 TO 사용자명;
+ * */
+
+GRANT CREATE SESSION TO TEST09_USER;
+--> 연결 확인됨
+
+/* 생성된 사용자 계정으로 접속 (TEST09_USER) */
+CREATE TABLE TEST_TABLE(
+	TEST_NO NUMBER PRIMARY KEY,
+	TEST_COL VARCHAR2(30) NOT NULL
+);
+--> 권한이 불충분합니다
+ -- + 사용 가능한 공간(TABLE SPACE) 할당
+
+/* 다시 관리자(공용SYSTEM)로 접속 */
+GRANT RESOURCE TO TEST09_USER;
+
+/* ROLE(역할) : 권한의 묶음
+ * - CONNECT  : 접속 관련 권한 묶음
+ * - RESOURCE : 객체 생성 권한 묶음
+ * */
+
+--SELECT * FROM ROLE_SYS_PRIVS
+--WHERE ROLE = 'RESOURCE';
+
+/* TEST09_USER에게 테이블 생성 공간 할당 
+ * - USERS폴더 내에 10M 할당
+ * */
+ALTER USER TEST09_USER
+DEFAULT TABLESPACE USERS
+QUOTA 10M ON USERS;
+
+/* 다시 TEST09_USER 계정 접속 후 테이블 생성*/
+CREATE TABLE TEST_TABLE(
+	TEST_NO NUMBER PRIMARY KEY,
+	TEST_COL VARCHAR2(30) NOT NULL
+);
+--> 생성 성공
+
+-----------------------------------------------------------------
+
+/* TEST09_USER 계정 접속 */
+
+/* 객체 권한 부여*/
+SELECT * FROM KH09_KHS.EMPLOYEE; --> 없어서 조회 불가
+
+
+/* KH09_KHS 계정으로 접속 */
+
+-- TEST 계정에 권한 부여
+
+/* [객체 권한 부여 방법]
+ * - GRANT 객체 권한 ON 객체명 TO 사용자명;
+ * */
+GRANT SELECT ON EMPLOYEE 
+TO TEST09_USER;
+
+/* 다시 TEST09_USER 계정 접속 */
+-- KH 계정의 EMPLOYEE 조회 시도
+SELECT * FROM KH09_KHS.EMPLOYEE;
+--> 조회 성공
+
+--------------------------------------------------------------------
+
+/* KH09_KHS 계정으로 접속 */
+
+/* REVOKE : 권한 회수 
+ * 
+ * REVOKE 객체권한 ON 객체명
+ * FROM 회수할 사용자 계정명
+ * */
+REVOKE SELECT ON EMPLOYEE
+FROM TEST09_USER;
+
+/* 다시 TEST09_USER 계정 접속 */
+-- KH 계정의 EMPLOYEE 조회 시도
+SELECT * FROM KH09_KHS.EMPLOYEE;
+--> 조회 권한을 회수 당해서 조회 불가
+
+
+-----------------------------------------------
+/* 관리자 계정 접속 */
+
+/* [사용자 계정 삭제]
+ * DROP USER 사용자명;
+ * 
+ * 단, 현재 접속중인 상태면 삭제 불가
+ *  */
+ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;
+DROP USER TEST09_USER CASCADE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
