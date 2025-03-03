@@ -236,7 +236,7 @@ ORDER BY 1;
 * 환경조경학과 전공과목들의 과목 별 평점을 조회하시오.
 * (평점은 TRUNC를 이용해 소수점 아래 둘째 자리까지 표시) */
 
--- ANSI
+
 SELECT CLASS_NO, CLASS_NAME, TRUNC(AVG(POINT),2) 평점
 FROM TB_CLASS 
 JOIN TB_GRADE USING(CLASS_NO)
@@ -281,7 +281,7 @@ WHERE ROWNUM = 1;
 -- 평점은 소수점 첫째자리까지만 반올림하여 표시 */
 
 
--- ANSI
+
 SELECT DEPARTMENT_NAME "계열 학과명", ROUND(AVG(POINT),1) 전공평점
 FROM TB_DEPARTMENT 
 JOIN TB_CLASS USING(DEPARTMENT_NO)
